@@ -18,10 +18,15 @@ public class Product implements Serializable {
     private String description;
     private Double price;
     private String imgUrl;
+
     /*
     * set é uma interface. Usasmos o HashSet que é uma classe
      */
     //set representa um conjunto. Não permite a msm categoria mais de uma vez
+    @ManyToMany
+    @JoinTable(name = "tb_product_category",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>(); //instancia para garantir que não inicia nula
 
     public Product(){}
