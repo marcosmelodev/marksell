@@ -1,0 +1,8 @@
+package br.com.marcos.marksell.repositories;
+
+import br.com.marcos.marksell.entities.Category;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CategoryRepository extends JpaRepository<Category, Long> {
+
+}

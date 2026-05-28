@@ -1,8 +1,10 @@
 package br.com.marcos.marksell.config;
 
+import br.com.marcos.marksell.entities.Category;
 import br.com.marcos.marksell.entities.Order;
 import br.com.marcos.marksell.entities.User;
 import br.com.marcos.marksell.entities.enums.OrderStatus;
+import br.com.marcos.marksell.repositories.CategoryRepository;
 import br.com.marcos.marksell.repositories.OrderRepository;
 import br.com.marcos.marksell.repositories.UserResporitory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @Override
     public void run(String... args) throws Exception {
 
@@ -33,7 +38,12 @@ public class TestConfig implements CommandLineRunner {
         Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"), OrderStatus.WAITING_PAYMENT, u2);
         Order o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"), OrderStatus.WAITING_PAYMENT, u1);
 
+        Category cat1 = new Category(null, "Eletronics");
+        Category cat2 = new Category(null, "Books");
+        Category cat3 = new Category(null, "Computers");
+
         userResporitory.saveAll(Arrays.asList(u1, u2));
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
     }
 }
