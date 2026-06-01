@@ -2,8 +2,11 @@ package br.com.marcos.marksell.services;
 
 import br.com.marcos.marksell.entities.User;
 import br.com.marcos.marksell.repositories.UserResporitory;
+import br.com.marcos.marksell.services.exceptions.DatabaseException;
 import br.com.marcos.marksell.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,7 +32,14 @@ public class UserService {
     }
 
     public void delete(Long id){
-        resporitory.deleteById(id);
+        try {
+            resporitory.deleteById(id);
+        } catch (EmptyResultDataAccessException e){
+            throw new ResourceNotFoundException(id); //tem que mostrar o 404
+        } catch (DataIntegrityViolationException e){
+            throw new DatabaseException(e.getMessage());
+        }
+
     }
 
     public User update(Long id, User obj) {
