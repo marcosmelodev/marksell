@@ -22,4 +22,8 @@ public class UserService {
         Optional<User> obj = resporitory.findById(id);
         return obj.get();
     }
+
+    public User insert(User obj){
+        return resporitory.save(obj);
+    }
 }
