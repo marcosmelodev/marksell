@@ -2,6 +2,7 @@ package br.com.marcos.marksell.services;
 
 import br.com.marcos.marksell.entities.User;
 import br.com.marcos.marksell.repositories.UserResporitory;
+import br.com.marcos.marksell.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class UserService {
 
     public User findById(Long id){
         Optional<User> obj = resporitory.findById(id);
-        return obj.get();
+        return obj.orElseThrow(()-> new ResourceNotFoundException(id));
     }
 
     public User insert(User obj){
